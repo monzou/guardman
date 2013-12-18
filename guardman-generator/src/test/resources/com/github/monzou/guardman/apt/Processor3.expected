@@ -1,0 +1,106 @@
+package com.github.monzou.guardman.apt.foo;
+
+//CHECKSTYLE:OFF
+import com.github.monzou.guardman.model.BeanProperty;
+import com.github.monzou.guardman.apt.TradeBean;
+
+/**
+ * TradeBeanFoo
+ */
+@SuppressWarnings("serial")
+public final class TradeBeanFoo implements java.io.Serializable {
+
+    private static final TradeBeanFoo INSTANCE = new TradeBeanFoo();
+
+    public static TradeBeanFoo get() {
+        return INSTANCE;
+    }
+
+    public final transient BeanProperty<TradeBean, java.lang.String> tradeNo = new BeanProperty<TradeBean, java.lang.String>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "tradeNo";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String apply(TradeBean bean) {
+            return bean.getTradeNo();
+        }
+
+    };
+
+    public final transient BeanProperty<TradeBean, com.github.monzou.guardman.apt.TradeBean.Status> status = new BeanProperty<TradeBean, com.github.monzou.guardman.apt.TradeBean.Status>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "status";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public com.github.monzou.guardman.apt.TradeBean.Status apply(TradeBean bean) {
+            return bean.getStatus();
+        }
+
+    };
+
+    public final transient BeanProperty<TradeBean, java.lang.Long> version = new BeanProperty<TradeBean, java.lang.Long>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "version";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.Long apply(TradeBean bean) {
+            return bean.getVersion();
+        }
+
+    };
+
+    public final transient BeanProperty<TradeBean, java.lang.Boolean> deleted = new BeanProperty<TradeBean, java.lang.Boolean>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "deleted";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.Boolean apply(TradeBean bean) {
+            return bean.isDeleted();
+        }
+
+    };
+
+    public final transient BeanProperty<TradeBean, java.lang.Boolean> flag = new BeanProperty<TradeBean, java.lang.Boolean>() {
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.String getName() {
+            return "flag";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public java.lang.Boolean apply(TradeBean bean) {
+            return bean.getFlag();
+        }
+
+    };
+
+    private Object readResolve() {
+        return INSTANCE;
+    }
+
+    private TradeBeanFoo() {
+    }
+
+}
