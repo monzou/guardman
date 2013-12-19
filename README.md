@@ -2,6 +2,10 @@
 
 GuardMan ("Guard man" in Japanese means "Security guard") is a simple validation library for Java.
 
+### Build Status
+
+[![Build Status](https://travis-ci.org/monzou/guardman.png)](https://travis-ci.org/monzou/guardman)
+
 ## Installation
 
 1. Add Maven repository: http://monzou.github.com/maven-repository/
