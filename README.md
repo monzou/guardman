@@ -203,7 +203,7 @@ For example:
 ### guardman-generator
 
 If you use bean meta classes, configure ```guardman-generator``` as an annotation processor.
-If you use Eclipse and Gradle, just configure ```build.gradle``` as following:
+For example, if you use Eclipse and Gradle, just configure ```build.gradle``` like following:
 
 ```groovy
 import groovy.xml.MarkupBuilder
@@ -215,8 +215,30 @@ configurations {
     apt
 }
 
+sourceSets {
+    apt
+}
+
 dependencies {
     apt "com.github.monzou:guardman-generator:${guardmanVersion}"
+}
+
+task compileAptJava(overwrite: true, dependsOn: clean)  {
+    doLast {
+        sourceSets.apt.output.resourcesDir.mkdirs()
+        ant.javac(
+            includeAntRuntime: false,
+            classpath: configurations.compile.asPath,
+            srcdir: "src/main/java",
+            encoding: "UTF-8"
+        ) {
+            compilerarg(line: "-proc:only")
+            compilerarg(line: "-processorpath ${configurations.apt.asPath}")
+            compilerarg(line: "-s ${sourceSets.apt.output.resourcesDir}")
+        }
+        compileJava.source sourceSets.apt.output.resourcesDir
+    }
+    compileJava.dependsOn compileAptJava
 }
 
 eclipse {
