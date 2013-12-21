@@ -53,13 +53,6 @@ subprojects {
     }
     [ findbugs, findbugsTest ]*.ignoreFailures = true
 
-    task initializeProject {
-        [ "src/main/java", "src/main/resources", "src/test/java", "src/test/resources" ].each {
-            def path = "${projectDir}/${it}"
-            ant.mkdir(dir: path)
-            ant.touch(file: "${path}/.gitkeep")
-        }
-    }
 
     task sourcesJar(type: Jar, dependsOn:classes) {
         classifier = "sources"
