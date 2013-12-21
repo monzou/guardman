@@ -43,11 +43,11 @@ public class BeanValidationContext<T> extends Violations {
         this(prefix, bean, new Violations());
     }
 
-    BeanValidationContext(String prefix, T bean, Violations violations) {
+    public BeanValidationContext(String prefix, T bean, Violations violations) {
         this(prefix == null ? null : Functions2.constant(prefix), bean, violations);
     }
 
-    BeanValidationContext(Function<String, String> prefix, T bean, Violations violations) {
+    public BeanValidationContext(Function<String, String> prefix, T bean, Violations violations) {
         super(violations);
         this.prefix = prefix;
         this.bean = checkNotNull(bean);
