@@ -34,6 +34,7 @@ subprojects {
         manifest.attributes provider: provider
         manifest.attributes "Implementation-Title": project.name
         manifest.attributes "Implementation-Version": version
+        from "../LICENSE"
     }
 
     test {
