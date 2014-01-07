@@ -92,26 +92,3 @@ uploadArchives {
 task wrapper(type: Wrapper) {
     gradleVeresion = "1.8"
 }
-
-task buildSubProjects {
-    description "build sub-projects"
-    dependsOn subprojects*.tasks.build
-}
-
-task uploadSubProjects {
-    description "upload sub-projects"
-    dependsOn subprojects*.tasks.uploadArchives
-}
-
-task testSubProjects {
-    description "test sub-projects"
-    dependsOn subprojects*.tasks.test
-}
-
-task generateJavaDocSubProjects(type: Javadoc) {
-    description "generates JavaDoc of sub-projects"
-    source subprojects*.sourceSets.main.allJava
-    destinationDir = new File(buildDir, "javadoc")
-    classpath = files(subprojects*.sourceSets.main.compileClasspath)
-    options.encoding = "UTF-8"
-}
