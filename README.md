@@ -2,6 +2,26 @@
 
 GuardMan ("Guard man" in Japanese means "Security guard") is a simple validation library for Java.
 
+### Example
+
+```java
+public class CredentialDtoValidator extends CredentialDtoMeta {
+
+    public Violations validate(CredentialDto bean) {
+        BeanValidationContext<CredentialDto> context = new BeanValidationContext<>(bean);
+        context.property(userCode).required().validate(
+            minLength(0),
+            maxLength(10),
+            alphaNumeric(false)
+        );
+        context.property(password).required().validate(PasswordValidator.INSTANCE);
+        context.property(version).required();
+        return context;
+    }
+
+}
+```
+
 ### Build Status
 
 [![Build Status](https://travis-ci.org/monzou/guardman.png)](https://travis-ci.org/monzou/guardman)
