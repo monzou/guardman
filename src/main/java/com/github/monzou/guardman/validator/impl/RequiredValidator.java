@@ -11,7 +11,7 @@ import com.github.monzou.guardman.validator.ValueValidator;
 public class RequiredValidator extends AbstractMutableValueValidator<Object> implements Serializable {
 
     /** the default instance */
-    public static ValueValidator<Object> INSTANCE = new RequiredValidator();
+    public static final ValueValidator<Object> INSTANCE = new RequiredValidator();
 
     private static final long serialVersionUID = 903511737289209144L;
 

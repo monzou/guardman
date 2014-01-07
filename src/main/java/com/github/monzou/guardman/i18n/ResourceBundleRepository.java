@@ -31,11 +31,12 @@ import com.google.common.io.Closer;
 
 /**
  * ResourceBundleRespository for GuardMan
- *
+ * 
  * @see LocaleProvider
  */
-@SuppressWarnings("serial")
 public class ResourceBundleRepository implements Serializable {
+
+    private static final long serialVersionUID = 7506762308618286168L;
 
     private static final String CHARSET_NAME = System.getProperty("guardman.charset", "UTF-8");
 

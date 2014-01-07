@@ -50,7 +50,7 @@ public class ValueValidators<V> implements ValueValidator<V>, Serializable {
         boolean passed = true;
         for (ValueValidator<? super V> validator : validators) {
             passed &= validator.apply(value, context);
-            if (haltOnError & !passed) {
+            if (haltOnError && !passed) {
                 break;
             }
         }

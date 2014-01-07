@@ -12,7 +12,7 @@ import com.google.common.base.Strings;
 public class NotBlankValidator extends AbstractMutableValueValidator<String> implements Serializable {
 
     /** the default instance */
-    public static ValueValidator<String> INSTANCE = new NotBlankValidator();
+    public static final ValueValidator<String> INSTANCE = new NotBlankValidator();
 
     private static final long serialVersionUID = 9070934149591767680L;
 
