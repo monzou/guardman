@@ -3,4 +3,4 @@ language: java
 jdk:
   - openjdk7
 
-script: "cd guardman-build && chmod +x gradlew && ./gradlew clean build"
+script: "chmod +x gradlew && ./gradlew clean build"
