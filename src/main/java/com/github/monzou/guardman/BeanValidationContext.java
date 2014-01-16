@@ -27,9 +27,11 @@ public class BeanValidationContext<T> extends Violations {
 
     private static final long serialVersionUID = 2618934244824336754L;
 
-    private final Function<String, String> prefix;
+    /** The prefix of violation message */
+    protected final Function<String, String> prefix;
 
-    private final T bean;
+    /** The bean to validate */
+    protected final T bean;
 
     public BeanValidationContext(T bean) {
         this((String) null, bean);
