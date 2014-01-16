@@ -22,7 +22,7 @@ public abstract class AbstractMutableValueValidator<V> implements MutableValueVa
 
     /** {@inheritDoc} */
     @Override
-    public final boolean apply(V value, ValidationContext context) {
+    public boolean apply(V value, ValidationContext context) {
         if (apply(value)) {
             return true;
         }
