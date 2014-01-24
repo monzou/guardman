@@ -10,7 +10,9 @@ import static com.github.monzou.guardman.GuardMan.min;
 import static com.github.monzou.guardman.GuardMan.minLength;
 import static com.github.monzou.guardman.GuardMan.required;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -69,6 +71,16 @@ public class BeanValidationContextTest {
             cashFlows.add(cashFlow);
         }
         trade.setCashFlows(cashFlows);
+
+    }
+
+    @Test
+    public void testPropertyValidationPassed() {
+
+        BeanValidationContext<Trade> context = new BeanValidationContext<>(trade);
+        assertTrue(context.property(TradeMeta.status).isPassed());
+        assertTrue(context.property(TradeMeta.status).required().isPassed());
+        assertFalse(context.property(TradeMeta.status).required().eq(Status.AUTHORIZED).isPassed());
 
     }
 

@@ -129,7 +129,7 @@ public class BeanValidationContext<T> extends Violations {
 
         private boolean haltOnError;
 
-        private boolean passed;
+        private boolean passed = true;
 
         protected PropertyValidation(BeanValidationContext<T> context, BeanPropertyAccessor<T, V> property) {
             this.context = context;
