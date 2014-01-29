@@ -33,11 +33,15 @@ public class Violations implements Iterable<Violation>, Serializable {
         this(Collections.<Violation> emptyList());
     }
 
+    public Violations(Violation... violations) {
+        this(Lists.newArrayList(violations));
+    }
+
     public Violations(Violations violations) {
         this(violations.getViolations());
     }
 
-    public Violations(Collection<Violation> violations) {
+    public Violations(Collection<? extends Violation> violations) {
         violationMap = ArrayListMultimap.create();
         for (Violation violation : violations) {
             violationMap.put(violation.getKey(), violation);
