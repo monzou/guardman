@@ -142,7 +142,7 @@ public class BeanValidationContextTest {
                     min(BigDecimal.ZERO), //
                     max(new BigDecimal("100000000")), //
                     digits(9, 5));
-            c.property(CashFlowMeta.startDate).required().lt(CashFlowMeta.endDate, "End Date");
+            c.property(CashFlowMeta.startDate).required().lt(cashFlow.getEndDate(), "End Date");
             c.property(CashFlowMeta.endDate).required().gt(CashFlowMeta.startDate, "Start Date");
             context.addViolations("cashFlows", c);
         }

@@ -154,7 +154,11 @@ public class BeanValidationContext<T> extends Violations {
         }
 
         public PropertyValidation<T, V> eq(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
-            return validate(GuardMan.eq(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
+            return eq(context.valueOf(conditionProperty), conditionPropertyCaption);
+        }
+
+        public PropertyValidation<T, V> eq(V conditionValue, String conditionPropertyCaption) {
+            return validate(GuardMan.eq(conditionValue).params(conditionPropertyCaption));
         }
 
         public PropertyValidation<T, V> ne(V conditionValue) {
@@ -166,7 +170,11 @@ public class BeanValidationContext<T> extends Violations {
         }
 
         public PropertyValidation<T, V> ne(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
-            return validate(GuardMan.ne(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
+            return ne(context.valueOf(conditionProperty), conditionPropertyCaption);
+        }
+
+        public PropertyValidation<T, V> ne(V conditionValue, String conditionPropertyCaption) {
+            return validate(GuardMan.ne(conditionValue).params(conditionPropertyCaption));
         }
 
         public PropertyValidation<T, V> lt(V conditionValue) {
@@ -178,7 +186,11 @@ public class BeanValidationContext<T> extends Violations {
         }
 
         public PropertyValidation<T, V> lt(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
-            return validate(GuardMan.lt(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
+            return lt(context.valueOf(conditionProperty), conditionPropertyCaption);
+        }
+
+        public PropertyValidation<T, V> lt(V conditionValue, String conditionPropertyCaption) {
+            return validate(GuardMan.lt(conditionValue).params(conditionPropertyCaption));
         }
 
         public PropertyValidation<T, V> le(V conditionValue) {
@@ -190,7 +202,11 @@ public class BeanValidationContext<T> extends Violations {
         }
 
         public PropertyValidation<T, V> le(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
-            return validate(GuardMan.le(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
+            return le(context.valueOf(conditionProperty), conditionPropertyCaption);
+        }
+
+        public PropertyValidation<T, V> le(V conditionValue, String conditionPropertyCaption) {
+            return validate(GuardMan.le(conditionValue).params(conditionPropertyCaption));
         }
 
         public PropertyValidation<T, V> gt(V conditionValue) {
@@ -202,7 +218,11 @@ public class BeanValidationContext<T> extends Violations {
         }
 
         public PropertyValidation<T, V> gt(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
-            return validate(GuardMan.gt(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
+            return gt(context.valueOf(conditionProperty), conditionPropertyCaption);
+        }
+
+        public PropertyValidation<T, V> gt(V conditionValue, String conditionPropertyCaption) {
+            return validate(GuardMan.gt(conditionValue).params(conditionPropertyCaption));
         }
 
         public PropertyValidation<T, V> ge(V conditionValue) {
@@ -214,7 +234,11 @@ public class BeanValidationContext<T> extends Violations {
         }
 
         public PropertyValidation<T, V> ge(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
-            return validate(GuardMan.ge(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
+            return ge(context.valueOf(conditionProperty), conditionPropertyCaption);
+        }
+
+        public PropertyValidation<T, V> ge(V conditionValue, String conditionPropertyCaption) {
+            return validate(GuardMan.ge(conditionValue).params(conditionPropertyCaption));
         }
 
         @SafeVarargs
