@@ -55,6 +55,10 @@ public class BeanValidationContext<T> extends Violations {
         this.bean = checkNotNull(bean);
     }
 
+    public T getBean() {
+        return bean;
+    }
+
     public void warn(String message) {
         warn((String) null, message);
     }
