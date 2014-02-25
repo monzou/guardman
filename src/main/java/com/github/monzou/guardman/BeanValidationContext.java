@@ -63,7 +63,7 @@ public class BeanValidationContext<T> extends Violations {
         addViolation(createWarning(propertyName, message));
     }
 
-    public void warn(BeanPropertyAccessor<T, ?> property, String message) {
+    public void warn(BeanPropertyAccessor<? super T, ?> property, String message) {
         addViolation(createWarning(property.getName(), message));
     }
 
@@ -75,7 +75,7 @@ public class BeanValidationContext<T> extends Violations {
         addViolation(createError(propertyName, message));
     }
 
-    public void error(BeanPropertyAccessor<T, ?> property, String message) {
+    public void error(BeanPropertyAccessor<? super T, ?> property, String message) {
         addViolation(createError(property.getName(), message));
     }
 
@@ -84,7 +84,7 @@ public class BeanValidationContext<T> extends Violations {
         return validate(propertyName, (V) Beans.getProperty(bean, propertyName), validator);
     }
 
-    public <V> boolean validate(BeanPropertyAccessor<T, V> property, ValueValidator<? super V> validator) {
+    public <V> boolean validate(BeanPropertyAccessor<? super T, V> property, ValueValidator<? super V> validator) {
         return validate(property.getName(), property.apply(bean), validator);
     }
 
@@ -108,11 +108,11 @@ public class BeanValidationContext<T> extends Violations {
         return violation;
     }
 
-    public <V> V valueOf(BeanPropertyAccessor<T, V> property) {
+    public <V> V valueOf(BeanPropertyAccessor<? super T, V> property) {
         return property.apply(bean);
     }
 
-    public <V> PropertyValidation<T, V> property(BeanPropertyAccessor<T, V> property) {
+    public <V> PropertyValidation<T, V> property(BeanPropertyAccessor<? super T, V> property) {
         return new PropertyValidation<T, V>(this, property);
     }
 
@@ -125,13 +125,13 @@ public class BeanValidationContext<T> extends Violations {
 
         private final BeanValidationContext<T> context;
 
-        private final BeanPropertyAccessor<T, V> property;
+        private final BeanPropertyAccessor<? super T, V> property;
 
         private boolean haltOnError;
 
         private boolean passed = true;
 
-        protected PropertyValidation(BeanValidationContext<T> context, BeanPropertyAccessor<T, V> property) {
+        protected PropertyValidation(BeanValidationContext<T> context, BeanPropertyAccessor<? super T, V> property) {
             this.context = context;
             this.property = property;
         }
@@ -149,11 +149,11 @@ public class BeanValidationContext<T> extends Violations {
             return validate(GuardMan.eq(conditionValue));
         }
 
-        public PropertyValidation<T, V> eq(BeanPropertyAccessor<T, V> conditionProperty) {
+        public PropertyValidation<T, V> eq(BeanPropertyAccessor<? super T, V> conditionProperty) {
             return eq(context.valueOf(conditionProperty));
         }
 
-        public PropertyValidation<T, V> eq(BeanPropertyAccessor<T, V> conditionProperty, String conditionPropertyCaption) {
+        public PropertyValidation<T, V> eq(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
             return validate(GuardMan.eq(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
         }
 
@@ -161,11 +161,11 @@ public class BeanValidationContext<T> extends Violations {
             return validate(GuardMan.ne(conditionValue));
         }
 
-        public PropertyValidation<T, V> ne(BeanPropertyAccessor<T, V> conditionProperty) {
+        public PropertyValidation<T, V> ne(BeanPropertyAccessor<? super T, V> conditionProperty) {
             return ne(context.valueOf(conditionProperty));
         }
 
-        public PropertyValidation<T, V> ne(BeanPropertyAccessor<T, V> conditionProperty, String conditionPropertyCaption) {
+        public PropertyValidation<T, V> ne(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
             return validate(GuardMan.ne(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
         }
 
@@ -173,11 +173,11 @@ public class BeanValidationContext<T> extends Violations {
             return validate(GuardMan.lt(conditionValue));
         }
 
-        public PropertyValidation<T, V> lt(BeanPropertyAccessor<T, V> conditionProperty) {
+        public PropertyValidation<T, V> lt(BeanPropertyAccessor<? super T, V> conditionProperty) {
             return lt(context.valueOf(conditionProperty));
         }
 
-        public PropertyValidation<T, V> lt(BeanPropertyAccessor<T, V> conditionProperty, String conditionPropertyCaption) {
+        public PropertyValidation<T, V> lt(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
             return validate(GuardMan.lt(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
         }
 
@@ -185,11 +185,11 @@ public class BeanValidationContext<T> extends Violations {
             return validate(GuardMan.le(conditionValue));
         }
 
-        public PropertyValidation<T, V> le(BeanPropertyAccessor<T, V> conditionProperty) {
+        public PropertyValidation<T, V> le(BeanPropertyAccessor<? super T, V> conditionProperty) {
             return le(context.valueOf(conditionProperty));
         }
 
-        public PropertyValidation<T, V> le(BeanPropertyAccessor<T, V> conditionProperty, String conditionPropertyCaption) {
+        public PropertyValidation<T, V> le(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
             return validate(GuardMan.le(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
         }
 
@@ -197,11 +197,11 @@ public class BeanValidationContext<T> extends Violations {
             return validate(GuardMan.gt(conditionValue));
         }
 
-        public PropertyValidation<T, V> gt(BeanPropertyAccessor<T, V> conditionProperty) {
+        public PropertyValidation<T, V> gt(BeanPropertyAccessor<? super T, V> conditionProperty) {
             return gt(context.valueOf(conditionProperty));
         }
 
-        public PropertyValidation<T, V> gt(BeanPropertyAccessor<T, V> conditionProperty, String conditionPropertyCaption) {
+        public PropertyValidation<T, V> gt(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
             return validate(GuardMan.gt(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
         }
 
@@ -209,11 +209,11 @@ public class BeanValidationContext<T> extends Violations {
             return validate(GuardMan.ge(conditionValue));
         }
 
-        public PropertyValidation<T, V> ge(BeanPropertyAccessor<T, V> conditionProperty) {
+        public PropertyValidation<T, V> ge(BeanPropertyAccessor<? super T, V> conditionProperty) {
             return ge(context.valueOf(conditionProperty));
         }
 
-        public PropertyValidation<T, V> ge(BeanPropertyAccessor<T, V> conditionProperty, String conditionPropertyCaption) {
+        public PropertyValidation<T, V> ge(BeanPropertyAccessor<? super T, V> conditionProperty, String conditionPropertyCaption) {
             return validate(GuardMan.ge(context.valueOf(conditionProperty)).params(conditionPropertyCaption));
         }
 
