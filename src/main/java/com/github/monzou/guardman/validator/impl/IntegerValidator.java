@@ -16,4 +16,10 @@ public class IntegerValidator extends PatternValidator implements Serializable {
         super(PATTERN);
     }
 
+    /** {@inheritDoc} */
+    @Override
+    protected String getMessageKey() {
+        return IntegerValidator.class.getSimpleName();
+    }
+
 }

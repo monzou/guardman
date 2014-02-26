@@ -15,5 +15,11 @@ public class NumericValidator extends PatternValidator implements Serializable {
     public NumericValidator() {
         super(PATTERN);
     }
+    
+    /** {@inheritDoc} */
+    @Override
+    protected String getMessageKey() {
+        return NumericValidator.class.getSimpleName();
+    }
 
 }
