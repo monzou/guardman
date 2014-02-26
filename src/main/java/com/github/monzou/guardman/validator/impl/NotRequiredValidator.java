@@ -24,7 +24,7 @@ public class NotRequiredValidator extends AbstractMutableValueValidator<Object> 
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(Object value, Object... params) {
-        return Messages.get(getClass().getSimpleName());
+        return Messages.get(NotRequiredValidator.class.getSimpleName());
     }
 
 }

@@ -57,7 +57,7 @@ public abstract class LengthValidator<V> extends AbstractMutableValueValidator<V
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(V value, Object... params) {
-        String key = getMessageKey();
+        String key = resolveMessageKey();
         if (params == null || params.length == 0) {
             return Messages.get(key, (Object[]) FluentIterable.from( //
                     Lists.newArrayList(lower == null ? null : lower.conditionValue, upper == null ? null : upper.conditionValue)).filter(Predicates.notNull()).toArray(Integer.class));
@@ -66,8 +66,8 @@ public abstract class LengthValidator<V> extends AbstractMutableValueValidator<V
         }
     }
 
-    private String getMessageKey() {
-        String key = getClass().getSimpleName();
+    private String resolveMessageKey() {
+        String key = getMessageKey();
         if (lower != null && upper != null && lower.equals(upper)) {
             key += ".eq";
         } else {
@@ -79,6 +79,10 @@ public abstract class LengthValidator<V> extends AbstractMutableValueValidator<V
             }
         }
         return key;
+    }
+
+    protected String getMessageKey() {
+        return LengthValidator.class.getSimpleName();
     }
 
     protected abstract int lengthOf(V value);

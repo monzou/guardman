@@ -19,7 +19,7 @@ public class CollectionNotEmptyValidator extends CollectionLengthValidator imple
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(Collection<?> value, Object... params) {
-        return Messages.get(getClass().getSimpleName());
+        return Messages.get(CollectionNotEmptyValidator.class.getSimpleName());
     }
 
 }

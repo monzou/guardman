@@ -97,7 +97,7 @@ public class ComparingValidator<V> extends AbstractMutableValueValidator<V> impl
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(V value, Object... params) {
-        String key = String.format("%s.%s", getClass().getSimpleName(), op.name().toLowerCase());
+        String key = String.format("%s.%s", ComparingValidator.class.getSimpleName(), op.name().toLowerCase());
         if (params == null || params.length == 0) {
             return Messages.get(key, conditionValue);
         } else {

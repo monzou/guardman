@@ -26,7 +26,7 @@ public class AlphaNumericAndSymbolValidator extends PatternValidator implements 
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(String value, Object... params) {
-        String key = getClass().getSimpleName();
+        String key = AlphaNumericAndSymbolValidator.class.getSimpleName();
         return Messages.get(allowSpace ? key + ".allowSpace" : key);
     }
 

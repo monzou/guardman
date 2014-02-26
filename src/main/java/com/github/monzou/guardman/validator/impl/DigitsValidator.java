@@ -45,7 +45,7 @@ public class DigitsValidator extends AbstractMutableValueValidator<Number> imple
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(Number value, Object... params) {
-        String key = getClass().getSimpleName();
+        String key = DigitsValidator.class.getSimpleName();
         if (params == null || params.length == 0) {
             return Messages.get(key, maxIntegerDigits, maxDecimalDigits);
         } else {

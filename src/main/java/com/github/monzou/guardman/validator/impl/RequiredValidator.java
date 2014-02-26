@@ -27,7 +27,7 @@ public class RequiredValidator extends AbstractMutableValueValidator<Object> imp
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(Object value, Object... params) {
-        return Messages.get(getClass().getSimpleName());
+        return Messages.get(RequiredValidator.class.getSimpleName());
     }
 
 }

@@ -28,4 +28,10 @@ public class CollectionLengthValidator extends LengthValidator<Collection<?>> im
         return value.size();
     }
 
+    /** {@inheritDoc} */
+    @Override
+    protected String getMessageKey() {
+        return CollectionLengthValidator.class.getSimpleName();
+    }
+
 }

@@ -31,7 +31,7 @@ public class PatternValidator extends AbstractMutableValueValidator<String> impl
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(String value, Object... params) {
-        String key = getClass().getSimpleName();
+        String key = PatternValidator.class.getSimpleName();
         if (params == null || params.length == 0) {
             return Messages.get(key, pattern);
         } else {

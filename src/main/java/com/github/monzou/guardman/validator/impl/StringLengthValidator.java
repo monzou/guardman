@@ -36,4 +36,10 @@ public class StringLengthValidator extends LengthValidator<String> {
         return value.length();
     }
 
+    /** {@inheritDoc} */
+    @Override
+    protected String getMessageKey() {
+        return StringLengthValidator.class.getSimpleName();
+    }
+
 }

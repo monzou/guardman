@@ -25,7 +25,7 @@ public class NotBlankValidator extends AbstractMutableValueValidator<String> imp
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(String value, Object... params) {
-        return Messages.get(getClass().getSimpleName());
+        return Messages.get(NotBlankValidator.class.getSimpleName());
     }
 
 }

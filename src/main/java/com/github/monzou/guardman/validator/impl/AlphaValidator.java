@@ -26,7 +26,7 @@ public class AlphaValidator extends PatternValidator implements Serializable {
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(String value, Object... params) {
-        String key = getClass().getSimpleName();
+        String key = AlphaValidator.class.getSimpleName();
         return Messages.get(allowSpace ? key + ".allowSpace" : key);
     }
 
