@@ -14,11 +14,11 @@ import com.github.monzou.guardman.validator.ValidationContext;
 @SuppressWarnings("serial")
 public abstract class AbstractMutableValueValidator<V> implements MutableValueValidator<V>, Serializable {
 
-    private ValidationSeverity severity = ValidationSeverity.ERROR;
+    protected ValidationSeverity severity = ValidationSeverity.ERROR;
 
-    private String message;
+    protected String message;
 
-    private Object[] params;
+    protected Object[] params;
 
     /** {@inheritDoc} */
     @Override

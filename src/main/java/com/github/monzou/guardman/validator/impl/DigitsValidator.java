@@ -3,12 +3,22 @@ package com.github.monzou.guardman.validator.impl;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.github.monzou.guardman.exception.GuardManRuntimeException;
 import com.github.monzou.guardman.i18n.Messages;
 
 /**
  * DigitsValidator
  */
 public class DigitsValidator extends AbstractMutableValueValidator<Number> implements Serializable {
+
+    private static enum Errors {
+
+        /** Infinity */
+        INFINITY,
+        /** Digits */
+        DIGITS,
+
+    }
 
     private static final long serialVersionUID = -5286196467414244181L;
 
@@ -24,33 +34,48 @@ public class DigitsValidator extends AbstractMutableValueValidator<Number> imple
     /** {@inheritDoc} */
     @Override
     public boolean apply(Number value) {
-        if (value == null) {
-            return true;
-        }
-        BigDecimal bd = toBigDecimal(value);
-        if (bd == null) {
-            return true;
-        }
-        int integerDigits = bd.precision() - bd.scale();
-        if (integerDigits > maxIntegerDigits) {
-            return false;
-        }
-        int fractionDigits = bd.scale() < 0 ? 0 : bd.scale();
-        if (fractionDigits > maxDecimalDigits) {
-            return false;
-        }
-        return true;
+        return validate(value) == null;
     }
 
     /** {@inheritDoc} */
     @Override
     protected String resolveMessage(Number value, Object... params) {
+        Errors error = validate(value);
         String key = DigitsValidator.class.getSimpleName();
-        if (params == null || params.length == 0) {
-            return Messages.get(key, maxIntegerDigits, maxDecimalDigits);
-        } else {
-            return Messages.get(key, params);
+        switch (error) {
+        case INFINITY:
+            return Messages.get(String.format("%s.infinity", key));
+        case DIGITS:
+            if (params == null || params.length == 0) {
+                return Messages.get(String.format("%s.digits", key), maxIntegerDigits, maxDecimalDigits);
+            } else {
+                return Messages.get(key, params);
+            }
+        default:
+            throw new GuardManRuntimeException("Unexpected error: " + error);
         }
+    }
+
+    private Errors validate(Number value) {
+        if (value == null || Double.isNaN(value.doubleValue())) {
+            return null;
+        }
+        if (Double.isInfinite(value.doubleValue())) {
+            return Errors.INFINITY;
+        }
+        BigDecimal bd = toBigDecimal(value);
+        if (bd == null) {
+            return null;
+        }
+        int integerDigits = bd.precision() - bd.scale();
+        if (integerDigits > maxIntegerDigits) {
+            return Errors.DIGITS;
+        }
+        int fractionDigits = bd.scale() < 0 ? 0 : bd.scale();
+        if (fractionDigits > maxDecimalDigits) {
+            return Errors.DIGITS;
+        }
+        return null;
     }
 
     private BigDecimal toBigDecimal(Number value) {

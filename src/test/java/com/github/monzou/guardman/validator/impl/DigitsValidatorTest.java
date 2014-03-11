@@ -35,6 +35,13 @@ public class DigitsValidatorTest {
     }
 
     @Test
+    public void testInfinity() {
+        DigitsValidator subject = new DigitsValidator(10, 5);
+        assertFalse(subject.apply(Double.POSITIVE_INFINITY));
+        assertFalse(subject.apply(Double.NEGATIVE_INFINITY));
+    }
+
+    @Test
     public void testMessage() {
         MockValidationContext context = new MockValidationContext();
         ValueValidator<Number> subject = new DigitsValidator(10, 5).message("message");
