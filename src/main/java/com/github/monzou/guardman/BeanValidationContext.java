@@ -4,12 +4,12 @@ import static com.github.monzou.guardman.GuardMan.validators;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.github.monzou.grinder.BeanPropertyAccessor;
+import com.github.monzou.grinder.util.Beans;
 import com.github.monzou.guardman.model.PrefixedViolation;
 import com.github.monzou.guardman.model.SimpleViolation;
 import com.github.monzou.guardman.model.ValidationSeverity;
 import com.github.monzou.guardman.model.Violation;
 import com.github.monzou.guardman.model.Violations;
-import com.github.monzou.guardman.util.Beans;
 import com.github.monzou.guardman.util.Functions2;
 import com.github.monzou.guardman.validator.ValidationContext;
 import com.github.monzou.guardman.validator.ValueValidator;
