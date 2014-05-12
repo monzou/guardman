@@ -75,6 +75,24 @@ public class BeanValidationContextTest {
     }
 
     @Test
+    public void testValueOf() {
+
+        BeanValidationContext<Trade> context = new BeanValidationContext<>(trade);
+        assertThat(context.valueOf(TradeMeta.status), is(Status.PLAN));
+        assertThat(context.valueOf(TradeMeta.tradeNo), is("100-000001"));
+
+    }
+
+    @Test
+    public void testGetValue() {
+
+        BeanValidationContext<Trade> context = new BeanValidationContext<>(trade);
+        assertThat(context.property(TradeMeta.status).getValue(), is(Status.PLAN));
+        assertThat(context.property(TradeMeta.tradeNo).getValue(), is("100-000001"));
+
+    }
+
+    @Test
     public void testPropertyValidationPassed() {
 
         BeanValidationContext<Trade> context = new BeanValidationContext<>(trade);

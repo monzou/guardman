@@ -276,6 +276,10 @@ public class BeanValidationContext<T> extends Violations {
             return passed;
         }
 
+        public V getValue() {
+            return context.valueOf(property);
+        }
+
     }
 
     /** {@link BeanPropertyAccessor} implementation with reflection */
