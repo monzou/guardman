@@ -2,10 +2,12 @@
 
 GuardMan ("Guard man" in Japanese means "Security guard") is a simple validation library for Java.
 
-### Example
+[![Build Status](https://travis-ci.org/monzou/guardman.png)](https://travis-ci.org/monzou/guardman)
 
 ```java
-public class CredentialDtoValidator extends CredentialDtoMeta {
+import static security.CredentialDtoMeta.*;
+
+public class CredentialDtoValidator  {
 
     public Violations validate(CredentialDto bean) {
         BeanValidationContext<CredentialDto> context = new BeanValidationContext<>(bean);
@@ -15,16 +17,12 @@ public class CredentialDtoValidator extends CredentialDtoMeta {
             alphaNumeric(false)
         );
         context.property(password).required().validate(PasswordValidator.INSTANCE);
-        context.property(version).required();
+        context.property(version).required().eq(ApplicationDescriptor.getVersion());
         return context;
     }
 
 }
 ```
-
-### Build Status
-
-[![Build Status](https://travis-ci.org/monzou/guardman.png)](https://travis-ci.org/monzou/guardman)
 
 ## Installation
 
@@ -56,8 +54,7 @@ context.property(TradeMeta.tradeNo).required().validate(
   alphaNumeric(false)
 );
 context.property(TradeMeta.remarks).validate(maxLength(1000));
-context.property(TradeMeta.cashFlows).required().validate(notEmpty());
-for (CashFlow cashFlow : bean.getCashFlows()) {
+for (CashFlow cashFlow : context.property(TradeMeta.cashFlows).required().validate(notEmpty()).getValue()) {
     BeanValidationContext<CashFlow> c = new BeanValidationContext<>(String.format("CashFlow %d", cashFlow.getSeqNo()), cashFlow);
     c.property(CashFlowMeta.seqNo).required().validate(max(100));
     c.property(CashFlowMeta.amount).required().validate(
@@ -85,8 +82,7 @@ context.<String> property("tradeNo").required().validate(
   alphaNumeric(false)
 );
 context.<String> property("remarks").validate(maxLength(1000));
-context.<List<CashFlow>> property("cashFlows").required().validate(notEmpty());
-for (CashFlow cashFlow : bean.getCashFlows()) {
+for (CashFlow cashFlow : context.<List<CashFlow>> property("cashFlows").required().validate(notEmpty()).getValue()) {
     BeanValidationContext<CashFlow> c = new BeanValidationContext<>(String.format("CashFlow %d", cashFlow.getSeqNo()), cashFlow);
     c.<Integer> property("seqNo").required().validate(max(100));
     c.<BigDecimal> property("amount").required().validate(
