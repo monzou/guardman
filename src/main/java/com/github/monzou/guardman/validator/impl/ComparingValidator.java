@@ -105,8 +105,7 @@ public class ComparingValidator<V> extends AbstractMutableValueValidator<V> impl
         }
     }
 
-    @SuppressWarnings("serial")
-    private class Comparing implements Predicate<V>, Serializable {
+    private class Comparing implements Predicate<V> {
 
         private final V value;
 
