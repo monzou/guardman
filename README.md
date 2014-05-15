@@ -44,7 +44,7 @@ dependencies {
 
 ## How to use
 
-With [grinder-generator](https://github.com/monzou/grinder) (**Recommended** due to maintenance and performance).
+Validate with [grinder](https://github.com/monzou/grinder) (**Recommended** due to maintenance and performance).
 
 ```java
 BeanValidationContext<Trade> context = new BeanValidationContext<>(bean);
