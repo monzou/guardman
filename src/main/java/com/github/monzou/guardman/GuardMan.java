@@ -30,30 +30,24 @@ import com.github.monzou.guardman.validator.impl.ValueValidators;
  * <h1>RECOMMENDED</h1>
  * You can use grinder-generator as an annotation processor to generate bean meta classes. <br />
  * Then you can use meta classes to validate Java beans.
+ * 
  * <pre>
- * BeanValidationContext<Trade> context = new BeanValidationContext<Trade>(trade);
- * context.property(TradeMeta.tradeNo).required().validate(
- *   minLength(0),
- *   maxLength(10),
- *   alphaNumeric(false)
- * );
+ * BeanValidationContext&lt;Trade&gt; context = new BeanValidationContext&lt;Trade&gt;(trade);
+ * context.property(TradeMeta.tradeNo).required().validate(minLength(0), maxLength(10), alphaNumeric(false));
  * context.property(TradeMeta.remarks).validate(maxLength(1000));
  * context.property(TradeMeta.cashFlows).required().validate(notEmpty());
  * for (CashFlow cashFlow : trade.getCashFlows()) {
- *     BeanValidationContext<CashFlow> c = new BeanValidationContext<CashFlow>(String.format("CashFlow %d", cashFlow.getSeqNo()), cashFlow);
+ *     BeanValidationContext&lt;CashFlow&gt; c = new BeanValidationContext&lt;CashFlow&gt;(String.format(&quot;CashFlow %d&quot;, cashFlow.getSeqNo()), cashFlow);
  *     c.property(CashFlowMeta.seqNo).required().validate(max(100));
- *     c.property(CashFlowMeta.amount).required().validate(
- *       min(BigDecimal.ZERO),
- *       max(new BigDecimal("100000000"))
- *     );
- *     c.property(CashFlowMeta.startDate).required().lt(CashFlowMeta.endDate, "End Date");
+ *     c.property(CashFlowMeta.amount).required().validate(min(BigDecimal.ZERO), max(new BigDecimal(&quot;100000000&quot;)));
+ *     c.property(CashFlowMeta.startDate).required().lt(CashFlowMeta.endDate, &quot;End Date&quot;);
  *     c.property(CashFlowMeta.endDate).required();
- *     context.addViolations("cashFlows", c);
+ *     context.addViolations(&quot;cashFlows&quot;, c);
  * }
  * for (Violation violation : context) {
- *   System.out.println(violation.getKey());
- *   System.out.println(violation.getSeverity());
- *   System.out.println(violation.getMessage());
+ *     System.out.println(violation.getKey());
+ *     System.out.println(violation.getSeverity());
+ *     System.out.println(violation.getMessage());
  * }
  * </pre>
  */
@@ -209,6 +203,10 @@ public class GuardMan {
 
     public static final MutableValueValidator<Collection<?>> minMaxSize(int min, boolean allowMin, int max, boolean allowMax) {
         return new CollectionLengthValidator(min, allowMin, max, allowMin);
+    }
+
+    public static final MutableValueValidator<Number> digits(int maxIntegerDigits) {
+        return new DigitsValidator(maxIntegerDigits);
     }
 
     public static final MutableValueValidator<Number> digits(int maxIntegerDigits, int maxDecimalDigits) {

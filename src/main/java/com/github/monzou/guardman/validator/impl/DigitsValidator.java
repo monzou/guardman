@@ -1,10 +1,15 @@
 package com.github.monzou.guardman.validator.impl;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.github.monzou.guardman.exception.GuardManRuntimeException;
 import com.github.monzou.guardman.i18n.Messages;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 /**
  * DigitsValidator
@@ -22,11 +27,20 @@ public class DigitsValidator extends AbstractMutableValueValidator<Number> imple
 
     private static final long serialVersionUID = -5286196467414244181L;
 
-    private final int maxIntegerDigits;
+    private final Integer maxIntegerDigits;
 
-    private final int maxDecimalDigits;
+    private final Integer maxDecimalDigits;
+
+    public DigitsValidator(int maxIntegerDigits) {
+        this(maxIntegerDigits, null);
+    }
 
     public DigitsValidator(int maxIntegerDigits, int maxDecimalDigits) {
+        this(Integer.valueOf(maxIntegerDigits), Integer.valueOf(maxDecimalDigits));
+    }
+
+    DigitsValidator(Integer maxIntegerDigits, Integer maxDecimalDigits) {
+        checkArgument(maxIntegerDigits != null || maxDecimalDigits != null, "maxIntegralDigits or maxDecimalDigits is required");
         this.maxIntegerDigits = maxIntegerDigits;
         this.maxDecimalDigits = maxDecimalDigits;
     }
@@ -46,14 +60,26 @@ public class DigitsValidator extends AbstractMutableValueValidator<Number> imple
         case INFINITY:
             return Messages.get(String.format("%s.infinity", key));
         case DIGITS:
+            key = String.format("%s.digits.%s", key, getParamsKey());
             if (params == null || params.length == 0) {
-                return Messages.get(String.format("%s.digits", key), maxIntegerDigits, maxDecimalDigits);
+                return Messages.get(key, maxIntegerDigits, maxDecimalDigits);
             } else {
                 return Messages.get(key, params);
             }
         default:
             throw new GuardManRuntimeException("Unexpected error: " + error);
         }
+    }
+
+    private String getParamsKey() {
+        List<String> keys = Lists.newArrayList();
+        if (maxIntegerDigits != null) {
+            keys.add("integral");
+        }
+        if (maxDecimalDigits != null) {
+            keys.add("decimal");
+        }
+        return Joiner.on(".").join(keys);
     }
 
     private Errors validate(Number value) {
@@ -67,13 +93,17 @@ public class DigitsValidator extends AbstractMutableValueValidator<Number> imple
         if (bd == null) {
             return null;
         }
-        int integerDigits = bd.precision() - bd.scale();
-        if (integerDigits > maxIntegerDigits) {
-            return Errors.DIGITS;
+        if (maxIntegerDigits != null) {
+            int integerDigits = bd.precision() - bd.scale();
+            if (integerDigits > maxIntegerDigits) {
+                return Errors.DIGITS;
+            }
         }
-        int fractionDigits = bd.scale() < 0 ? 0 : bd.scale();
-        if (fractionDigits > maxDecimalDigits) {
-            return Errors.DIGITS;
+        if (maxDecimalDigits != null) {
+            int decimalDigits = bd.scale() < 0 ? 0 : bd.scale();
+            if (decimalDigits > maxDecimalDigits) {
+                return Errors.DIGITS;
+            }
         }
         return null;
     }
