@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.FluentIterable;
@@ -143,7 +143,13 @@ public class Violations implements Iterable<Violation>, Serializable {
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("violations-size", getViolations().size()).toString();
+        List<String> buffer = Lists.newArrayList();
+        buffer.add("Violations: {");
+        for (Violation violation : getViolations()) {
+            buffer.add(String.format("  %s", violation));
+        }
+        buffer.add("}");
+        return Joiner.on(System.lineSeparator()).join(buffer);
     }
 
 }
